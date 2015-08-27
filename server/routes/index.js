@@ -5,7 +5,7 @@ var utility = require('../logic/utility');
 var response;
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Calendar' });
+  res.render('index', { title: 'gCalendar' });
 });
 
 router.get('/form', function(req, res, next) {

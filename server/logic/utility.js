@@ -1,3 +1,19 @@
+var events = [
+        {
+          title  : 'event1',
+          start  : '2015-08-27'
+        },
+        {
+          title  : 'event2',
+          start  : '2015-08-26',
+          end    : '2015-08-27'
+        },
+        {
+          title  : 'event3',
+          start  : '2015-08-28T12:30:00',
+        }
+      ];
+
 
 function postHandler(body) {
   var newEvent = new CalEvent(
@@ -31,4 +47,8 @@ CalEvent.prototype.calFormat = function() {
   };
 };
 
-module.exports = postHandler;
+module.exports = {
+  postHandler: postHandler,
+  CalEvent: CalEvent,
+  events: events
+};
