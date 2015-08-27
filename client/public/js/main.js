@@ -1,16 +1,23 @@
 // add scripts
 
 $(document).on('ready', function() {
+  var events = [];
+
   $("#calendar").fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        right: 'agendaWeek'
       },
       defaultView: 'agendaWeek',
       defaultDate: '2014-06-12',
       editable: true,
-      lazyFetching: true
+      lazyFetching: true,
+      minTime: '09:00:00',
+      maxTime: '17:00:00',
+      weekends: false,
+      height: 'auto',
+      events: events
     });
 
 
@@ -19,7 +26,26 @@ $(document).on('ready', function() {
     event.stopPropagation();
 
     $('#event-modal').modal('show');
-    $('#event-modal').on('hide.bs.modal', clearForm);
+    $('#event-modal').on('hide.bs.modal', function(event) {
+      clearForm();
+      $('#calendar').fullCalendar({
+        events: [ // put the array in the `events` property
+                {
+                    title  : 'event1',
+                    start  : '2010-01-01'
+                },
+                {
+                    title  : 'event2',
+                    start  : '2010-01-05',
+                    end    : '2010-01-07'
+                },
+                {
+                    title  : 'event3',
+                    start  : '2010-01-09T12:30:00',
+                }
+            ]
+      });
+    });
   });
 });
 
