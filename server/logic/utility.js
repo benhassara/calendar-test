@@ -28,8 +28,8 @@ function postHandler(body) {
 }
 
 function CalEvent(name, desc, date, start, end, url) {
-  this.name = name;
-  this.desc = desc;
+  this.title = name;
+  this.description = desc;
   this.date = date;
   this.start = start;
   this.end = end;

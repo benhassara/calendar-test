@@ -9,7 +9,7 @@
 
     <div class='text-center'>
       <h1>{{ title }}</h1>
-      <p><span style="color: black">Open yet focused.</span> Absolutely no leveling up. Or hashtags. <a href="https://twitter.com/hashtag/fuckhashtags">Fuck hashtags.</a></p>
+      <p>Absolutely no leveling up. Or hashtags. <a href="https://twitter.com/hashtag/fuckhashtags">Fuck hashtags.</a></p>
       <button id="add-event" class="btn btn-default">Add Event</button>
     </div>
     <div id="calendar"></div>
@@ -26,7 +26,7 @@
             <h4 class="modal-title">Add an Event</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" action="/add" method="POST">
+            <form id="add-event-form" class="form-horizontal" action="/add" method="POST">
 
               <div class="form-group">
                 <label for="event-name" class="col-sm-2 control-label">Event Name</label>

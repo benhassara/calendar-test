@@ -2,7 +2,6 @@
 
 $(document).on('ready', function() {
   // var events = [];
-  $('body').css('background-image', 'url(hermy.png)');
 
   $("#calendar").fullCalendar({
       header: {
@@ -33,6 +32,10 @@ $(document).on('ready', function() {
         start: '2015-08-27T13:00:00'
       }, true);
     });
+  });
+
+  $('#add-event-form').on('submit', function(event) {
+
   });
 });
 
