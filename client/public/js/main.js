@@ -2,6 +2,7 @@
 
 $(document).on('ready', function() {
   // var events = [];
+  // $('body').css('background-image', 'url(../hermy.png)');
 
   $("#calendar").fullCalendar({
       header: {
@@ -15,7 +16,8 @@ $(document).on('ready', function() {
       minTime: '09:00:00',
       maxTime: '17:00:00',
       weekends: false,
-      height: 'auto'
+      height: 'auto',
+      events: '/api/v1/breakouts'
     });
 
 
@@ -26,16 +28,48 @@ $(document).on('ready', function() {
     $('#event-modal').modal('show');
     $('#event-modal').on('hide.bs.modal', function(event) {
       clearForm();
-      $('#calendar').fullCalendar('renderEvent', {
-        title: 'after modal',
-        start: '2015-08-27T13:00:00'
-      }, true);
+      $('#calendar').fullCalendar('refetchEvents');
     });
   });
 
   $('#add-event-form').on('submit', function(event) {
-    // $.post({});
+    event.preventDefault();
+
+    $.post('/api/v1/add', {
+      title: $('#event-name').val(),
+      start: $('#event-date').val()+'T'+$('#event-start').val(),
+      end: $('#event-date').val()+'T'+$('#event-end').val(),
+      description: $('#event-desc').val(),
+      url: $('#event-url').val(),
+    }, function(data){
+      clearForm();
+      $.get('api/v1/breakouts', function(eventsData) {
+        console.log(eventsData);
+        $('#calendar').fullCalendar('refetchEvents');
+      });
+      $('#event-modal').modal('hide');
+    });
   });
+});
+
+function randColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+$('#hermy').on('click', function() {
+  $('body').css('background-image', 'url(../hermy.png)');
+  $('body').css('color', randColor());
+});
+
+$('#gradient').on('click', function() {
+  $('body').css('background-image', "");
+  $('body').css('color', 'white');
+  $('body').attr('id', 'grad-bground');
 });
 
 

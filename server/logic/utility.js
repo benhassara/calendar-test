@@ -34,6 +34,7 @@ function CalEvent(name, desc, date, start, end, url) {
   this.start = start;
   this.end = end;
   this.url = url || 'https://www.google.com';
+  this.attendees = [];
 }
 
 CalEvent.prototype.calFormat = function() {
