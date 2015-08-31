@@ -1,8 +1,25 @@
 // add scripts
+$('#hermy').on('click', function() {
+  $('body').css('background-image', 'url(../hermy.png)');
+  $('body').css('color', randColor());
+});
+
+$('#gradient').on('click', function() {
+  $('body').css('background-image', "");
+  $('body').css('color', 'white');
+  $('body').attr('id', 'grad-bground');
+});
 
 $(document).on('ready', function() {
   // var events = [];
   // $('body').css('background-image', 'url(../hermy.png)');
+  $("<audio></audio>").attr({
+      'src':'../jparktheme.mp3',
+      'volume':0.4,
+      'autoplay':'autoplay'
+  }).appendTo("body");
+
+
 
   $("#calendar").fullCalendar({
       header: {
