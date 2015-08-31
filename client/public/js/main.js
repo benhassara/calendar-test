@@ -5,12 +5,11 @@ $(document).on('ready', function() {
 
   $("#calendar").fullCalendar({
       header: {
-        left: 'prev,next today',
+        left: 'prev,next',
         center: 'title',
-        right: 'agendaWeek'
+        right: 'today'
       },
       defaultView: 'agendaWeek',
-      defaultDate: '2015-08-27',
       editable: false,
       lazyFetching: true,
       minTime: '09:00:00',
@@ -35,7 +34,7 @@ $(document).on('ready', function() {
   });
 
   $('#add-event-form').on('submit', function(event) {
-
+    // $.post({});
   });
 });
 
