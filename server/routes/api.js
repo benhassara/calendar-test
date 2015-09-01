@@ -44,12 +44,23 @@ router.post('/add', function(req, res) {
 // PUT - modify an event
 router.put('/breakout/:id', function(req, res) {
   var query = {'_id': req.params.id};
-  var update = {attendees: req.body.attendees++};
-  var options = {new: true};
-  CalEvent.findOneAndUpdate(query, update, options, function(err, calEvent) {
-    console.log(calEvent);
-    res.json(calEvent);
+  var newAttendees = 0;
+
+  CalEvent.findOne(query, function(err, calEvent) {
+    newAttendees = calEvent.attendees + 1;
+    var update = {attendees: newAttendees};
+    var options = {new: true};
+    CalEvent.findOneAndUpdate(query, update, options, function(err, calEvent) {
+      res.json(calEvent);
+    });
   });
+
+  // var update = {attendees: newAttendees};
+  // var options = {new: true};
+  // CalEvent.findOneAndUpdate(query, update, options, function(err, calEvent) {
+  //   console.log('findOneAndUpdate: ' + calEvent);
+  //   res.json(calEvent);
+  // });
 });
 
 // DELETE - single breakout group

@@ -10,18 +10,25 @@ $('#gradient').on('click', function() {
   $('body').attr('id', 'grad-bground');
 });
 
-$(document).on('click', "#attend", function() {
+// handler for when Attend btn in tooltip is clicked
+$(document).on('click', ".attend", function() {
+  console.log($(this).parent());
   $.ajax({
     type: 'PUT',
-    url: '/api/v1/breakout/'+$(this).attr('_id'),
+    url: '/api/v1/breakout/' + $(this).attr('id')
   }).done(function(data) {
     console.log(data);
   });
+  var $span = $(this).parent().find('.att-num');
+  var num = Number($span.html()) + 1;
+
+  $span.html(num);
+
+
 });
 
 $(document).on('ready', function() {
-  // var events = [];
-  // $('body').css('background-image', 'url(../hermy.png)');
+
   $("<audio></audio>").attr({
       'src':'../jparktheme.mp3',
       'volume':0.4,
@@ -59,22 +66,20 @@ $(document).on('ready', function() {
         right: 'today'
       },
       eventClick: function(data, event, view) {
-  var content = '<h3>'+data.title+'</h3>' +
-    '<p><b>Start:</b> '+data.start+'<br />' +
-    (data.description && '<p><b>Description:</b>'+data.description || '')+
-    (data.end && '<p><b>End:</b> '+data.end+'</p>' || '')+
-    (data.attendees && '<p><b>Attending:</b>'+data.attendees || '')+
-    '<button id="attend">Attend!</button>';
+        var content = '<h3>'+data.title+'</h3>' +
+                      '<p><b>Start:</b> '+data.start.format('h:mma')+'<br />' +
+                      (data.description && '<p><b>Description: </b>'+data.description || '')+
+                      (data.end && '<p><b>End:</b> '+data.end.format('h:mma')+'</p>' || '')+
+                      (data.attendees && '<p><b>Attending:  </b><span class="att-num">'+data.attendees + '</span></p>' || '')+
+                      '<button class="attend" id="'+data._id+'">Attend!</button>';
 
-  tooltip.set({
-    'content.text': content
-  })
-  .reposition(event).show(event);
-},
-    dayClick: function() { tooltip.hide(); },
-eventResizeStart: function() { tooltip.hide(); },
-eventDragStart: function() { tooltip.hide(); },
-viewDisplay: function() { tooltip.hide(); },
+        tooltip.set({'content.text': content})
+               .reposition(event).show(event);
+      },
+      dayClick: function() { tooltip.hide(); },
+      eventResizeStart: function() { tooltip.hide(); },
+      eventDragStart: function() { tooltip.hide(); },
+      viewDisplay: function() { tooltip.hide(); },
       defaultView: 'agendaWeek',
       editable: false,
       lazyFetching: true,
@@ -85,7 +90,7 @@ viewDisplay: function() { tooltip.hide(); },
       events: '/api/v1/breakouts'
     });
 
-
+  // handler for Add Event btn that launches add event form modal
   $('#add-event').on('click', function(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -97,6 +102,7 @@ viewDisplay: function() { tooltip.hide(); },
     });
   });
 
+  // handler for Add Event form submission
   $('#add-event-form').on('submit', function(event) {
     event.preventDefault();
 
