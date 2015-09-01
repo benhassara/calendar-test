@@ -38,18 +38,6 @@ function CalEvent(name, desc, date, start, end, url) {
   this.attendees = 0;
 }
 
-CalEvent.prototype.calFormat = function() {
-  // this will do things
-  var out = {
-    title: this.name,
-    start: this.start,
-    end: this.end,
-    url: this.url,
-    description: this.description,
-    overlap: true
-  };
-};
-
 module.exports = {
   postHandler: postHandler,
   CalEvent: CalEvent,
