@@ -10,6 +10,15 @@ $('#gradient').on('click', function() {
   $('body').attr('id', 'grad-bground');
 });
 
+$(document).on('click', "#attend", function() {
+  $.ajax({
+    type: 'PUT',
+    url: '/api/v1/breakout/'+$(this).attr('_id'),
+  }).done(function(data) {
+    console.log(data);
+  });
+});
+
 $(document).on('ready', function() {
   // var events = [];
   // $('body').css('background-image', 'url(../hermy.png)');
@@ -19,7 +28,29 @@ $(document).on('ready', function() {
       'autoplay':'autoplay'
   }).appendTo("body");
 
-
+  var tooltip = $('<div/>').qtip({
+          id: 'fullcalendar',
+          prerender: true,
+          content: {
+              text: ' ',
+              title: {
+                  button: true
+              }
+          },
+          position: {
+              my: 'bottom center',
+              at: 'top center',
+              target: 'mouse',
+              viewport: $(window),
+              adjust: {
+                  mouse: false,
+                  scroll: false
+              }
+          },
+          show: false,
+          hide: false,
+          style: 'qtip-light'
+      }).qtip('api');
 
   $("#calendar").fullCalendar({
       header: {
@@ -27,6 +58,23 @@ $(document).on('ready', function() {
         center: 'title',
         right: 'today'
       },
+      eventClick: function(data, event, view) {
+  var content = '<h3>'+data.title+'</h3>' +
+    '<p><b>Start:</b> '+data.start+'<br />' +
+    (data.description && '<p><b>Description:</b>'+data.description || '')+
+    (data.end && '<p><b>End:</b> '+data.end+'</p>' || '')+
+    (data.attendees && '<p><b>Attending:</b>'+data.attendees || '')+
+    '<button id="attend">Attend!</button>';
+
+  tooltip.set({
+    'content.text': content
+  })
+  .reposition(event).show(event);
+},
+    dayClick: function() { tooltip.hide(); },
+eventResizeStart: function() { tooltip.hide(); },
+eventDragStart: function() { tooltip.hide(); },
+viewDisplay: function() { tooltip.hide(); },
       defaultView: 'agendaWeek',
       editable: false,
       lazyFetching: true,
