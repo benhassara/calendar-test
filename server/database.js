@@ -9,7 +9,7 @@ var CalEvent = new Schema(
     end: String,
     description: String,
     url: String,
-    attendees: Array
+    attendees: Number
   }
 );
 

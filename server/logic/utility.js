@@ -24,6 +24,7 @@ function postHandler(body) {
                         body['event-end'],
                         body['event-url'] );
 
+
   return {message: "Event added.", calEvent: newEvent};
 }
 
@@ -34,7 +35,7 @@ function CalEvent(name, desc, date, start, end, url) {
   this.start = start;
   this.end = end;
   this.url = url || 'https://www.google.com';
-  this.attendees = [];
+  this.attendees = 0;
 }
 
 CalEvent.prototype.calFormat = function() {
@@ -44,6 +45,7 @@ CalEvent.prototype.calFormat = function() {
     start: this.start,
     end: this.end,
     url: this.url,
+    description: this.description,
     overlap: true
   };
 };

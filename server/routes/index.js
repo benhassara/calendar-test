@@ -21,8 +21,7 @@ router.post('/add', function(req, res, next) {
     start: body['event-date']+'T'+body['event-start'],
     end: body['event-date']+'T'+body['event-end'],
     description: body['event-desc'],
-    url: body['event-url'],
-    attendees: []
+    url: body['event-url']
   }).save(function(err, newEvent){
     console.log(newEvent);
     res.redirect('/');

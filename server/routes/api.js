@@ -31,7 +31,8 @@ router.post('/add', function(req, res) {
     start: body.start,
     end: body.end,
     description: body.description,
-    url: body.url
+    url: body.url,
+    attendees: body.attendees
   }).save(function(err, newEvent){
     res.json({
       message: 'Event added.',
@@ -43,7 +44,7 @@ router.post('/add', function(req, res) {
 // PUT - modify an event
 router.put('/breakout/:id', function(req, res) {
   var query = {'_id': req.params.id};
-  var update = req.body.attendees;
+  var update = req.body.attendees++;
   var options = {new: true};
   CalEvent.findOneAndUpdate(query, update, options, function(err, calEvent) {
     console.log(calEvent);
